@@ -13,14 +13,16 @@ namespace TestADB.UserControl
     class ADBCommands : Component
     {
         // ----------------------------------------- Adb.exe path, leave blank if in same directory as app or included in PATH
-        private string adbPath = "adb";
+        private string adbPath;
         public string AdbPath
         {
             get { return adbPath; }
             set
             {
-                if (File.Exists(value)) adbPath = value;
-                else adbPath = "\"" + adbPath + "\"";
+                if (File.Exists(value))
+                    adbPath = value;
+                else
+                    adbPath = "\"" + adbPath + "\"";
             }
         }
         // ----------------------------------------- Adb command timeout - usable in push and pull to avoid hanging while executing
@@ -38,6 +40,7 @@ namespace TestADB.UserControl
         private Process Shell;
         public ADBCommands()
         {
+            AdbPath = @"C:\Users\Shadi\source\repos\TestADB\TestADB\bin\Debug\adb.exe"; // Path Adb Server
             CMD.DoWork += new DoWorkEventHandler(CMD_Send);
         }
 
@@ -57,7 +60,6 @@ namespace TestADB.UserControl
                 FileName = "cmd.exe",
                 Arguments = "/C \"" + Command + "\""
             };
-
 
 
             using (Process process = Process.Start(startInfo))

@@ -43,53 +43,58 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.button6 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(28, 43);
+            this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 34);
+            this.button1.Size = new System.Drawing.Size(106, 34);
             this.button1.TabIndex = 0;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(28, 83);
+            this.button2.Location = new System.Drawing.Point(115, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 34);
+            this.button2.Size = new System.Drawing.Size(106, 34);
             this.button2.TabIndex = 1;
             this.button2.Text = "Disconnect";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(28, 123);
+            this.button3.Location = new System.Drawing.Point(28, 43);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 48);
+            this.button3.Size = new System.Drawing.Size(106, 34);
             this.button3.TabIndex = 2;
             this.button3.Text = "Start Server";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(28, 177);
+            this.button4.Location = new System.Drawing.Point(28, 83);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(99, 34);
+            this.button4.Size = new System.Drawing.Size(106, 34);
             this.button4.TabIndex = 3;
             this.button4.Text = "Kill Server";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(28, 219);
+            this.button5.Location = new System.Drawing.Point(28, 131);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(99, 34);
+            this.button5.Size = new System.Drawing.Size(106, 34);
             this.button5.TabIndex = 4;
             this.button5.Text = "button5";
             this.button5.UseVisualStyleBackColor = true;
@@ -101,13 +106,11 @@
             this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(3, 22);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(589, 216);
+            this.listBox1.Size = new System.Drawing.Size(589, 171);
             this.listBox1.TabIndex = 5;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button4);
@@ -129,6 +132,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(595, 241);
@@ -186,10 +190,10 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(7, 92);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(139, 24);
+            this.radioButton3.Size = new System.Drawing.Size(144, 24);
             this.radioButton3.TabIndex = 2;
             this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Reboot Device";
+            this.radioButton3.Text = "Reboot System";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // button6
@@ -200,6 +204,16 @@
             this.button6.TabIndex = 3;
             this.button6.Text = "Reboot";
             this.button6.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 193);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(589, 45);
+            this.flowLayoutPanel1.TabIndex = 6;
             // 
             // Form1
             // 
@@ -221,6 +235,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -242,6 +257,7 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
