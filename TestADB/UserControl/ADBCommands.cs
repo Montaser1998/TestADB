@@ -38,9 +38,9 @@ namespace TestADB.UserControl
         BackgroundWorker CMD = new BackgroundWorker();
 
         private Process Shell;
-        public ADBCommands()
+        public ADBCommands(string path)
         {
-            AdbPath = @"C:\Users\Shadi\source\repos\TestADB\TestADB\bin\Debug\adb.exe"; // Path Adb Server
+            AdbPath = $"{path}\\adb.exe"; // Path Adb Server
             CMD.DoWork += new DoWorkEventHandler(CMD_Send);
         }
 
@@ -64,7 +64,7 @@ namespace TestADB.UserControl
 
             using (Process process = Process.Start(startInfo))
             {
-                if (Command.StartsWith("\"" + adbPath + "\" logcat"))
+                if (Command.StartsWith("\"" + AdbPath + "\" logcat"))
                 {
                     Complete = true;
                     process.WaitForExit();
@@ -118,27 +118,27 @@ namespace TestADB.UserControl
 
         public void Connect(string ip)
         {
-            SendCommand("\"" + adbPath + "\" connect " + ip);
+            SendCommand("\"" + AdbPath + "\" connect " + ip);
         }
 
-        public void Disconnect(decimal ip)
+        public void Disconnect(string ip)
         {
-            SendCommand("\"" + adbPath + "\" disconnect " + ip);
+            SendCommand("\"" + AdbPath + "\" disconnect " + ip);
         }
 
         public void StartServer()
         {
-            SendCommand("\"" + adbPath + "\" start-server");
+            SendCommand("\"" + AdbPath + "\" start-server");
         }
 
         public void KillServer()
         {
-            SendCommand("\"" + adbPath + "\" kill-server");
+            SendCommand("\"" + AdbPath + "\" kill-server");
         }
 
         public List<string> Devices()
         {
-            SendCommand("\"" + adbPath + "\" devices");
+            SendCommand("\"" + AdbPath + "\" devices");
             string[] outLines = Output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             return outLines.Skip(1).ToList();
         }
@@ -146,14 +146,14 @@ namespace TestADB.UserControl
         public void Execute(string command, bool asroot)
         {
             if (asroot)
-                SendCommand("\"" + adbPath + "\" shell su -c \"" + command + "\"");
+                SendCommand("\"" + AdbPath + "\" shell su -c \"" + command + "\"");
             else
-                SendCommand("\"" + adbPath + "\" shell " + command);
+                SendCommand("\"" + AdbPath + "\" shell " + command);
         }
 
         public void Remount()
         {
-            SendCommand("\"" + adbPath + "\" shell su -c \"mount -o rw,remount /system\"");
+            SendCommand("\"" + AdbPath + "\" shell su -c \"mount -o rw,remount /system\"");
         }
 
         public void Reboot(BootState boot)
@@ -161,13 +161,13 @@ namespace TestADB.UserControl
             switch (boot)
             {
                 case BootState.System:
-                    SendCommand("\"" + adbPath + "\" shell su -c \"reboot\"");
+                    SendCommand("\"" + AdbPath + "\" shell su -c \"reboot\"");
                     break;
                 case BootState.Bootloader:
-                    SendCommand("\"" + adbPath + "\" shell su -c \"reboot bootloader\"");
+                    SendCommand("\"" + AdbPath + "\" shell su -c \"reboot bootloader\"");
                     break;
                 case BootState.Recovery:
-                    SendCommand("\"" + adbPath + "\" shell su -c \"reboot recovery\"");
+                    SendCommand("\"" + AdbPath + "\" shell su -c \"reboot recovery\"");
                     break;
             }
         }
@@ -176,13 +176,13 @@ namespace TestADB.UserControl
         {
             try
             {
-                SendCommand("\"" + adbPath + "\" push \"" + input + "\" \"" + output + "\"");
+                SendCommand("\"" + AdbPath + "\" push \"" + input + "\" \"" + output + "\"");
             }
             catch
             {
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" push \"" + input.Replace("/", "\\") + "\" \"" + output + "\"");
+                    SendCommand("\"" + AdbPath + "\" push \"" + input.Replace("/", "\\") + "\" \"" + output + "\"");
                 }
                 catch
                 {
@@ -197,25 +197,24 @@ namespace TestADB.UserControl
             {
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" pull \"" + input + "\" \"" + output + "\"");
+                    SendCommand("\"" + AdbPath + "\" pull \"" + input + "\" \"" + output + "\"");
                 }
                 catch
                 {
                     try
                     {
-                        SendCommand("\"" + adbPath + "\" pull \"" + input + "\" \"" + output.Replace("/", "\\") + "\"");
+                        SendCommand("\"" + AdbPath + "\" pull \"" + input + "\" \"" + output.Replace("/", "\\") + "\"");
                     }
                     catch
                     {
                     }
                 }
-
             }
             else
             {
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" pull \"" + input + "\"");
+                    SendCommand("\"" + AdbPath + "\" pull \"" + input + "\"");
                 }
                 catch
                 {
@@ -227,13 +226,13 @@ namespace TestADB.UserControl
         {
             try
             {
-                SendCommand("\"" + adbPath + "\" install \"" + application + "\"");
+                SendCommand("\"" + AdbPath + "\" install \"" + application + "\"");
             }
             catch
             {
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" install \"" + application.Replace("/", "\\") + "\"");
+                    SendCommand("\"" + AdbPath + "\" install \"" + application.Replace("/", "\\") + "\"");
                 }
                 catch
                 {
@@ -244,28 +243,28 @@ namespace TestADB.UserControl
 
         public void Uninstall(string packageName)
         {
-            SendCommand("\"" + adbPath + "\" uninstall \"" + packageName + "\"");
+            SendCommand("\"" + AdbPath + "\" uninstall \"" + packageName + "\"");
         }
 
         public void Backup(string backupPath, string backupArgs)
         {
             if (backupArgs != null && !string.IsNullOrWhiteSpace(backupArgs))
-                SendCommand("\"" + adbPath + "\" backup \"" + backupPath + "\" " + "\"" + backupArgs + "\"");
+                SendCommand("\"" + AdbPath + "\" backup \"" + backupPath + "\" " + "\"" + backupArgs + "\"");
             else
-                SendCommand("\"" + adbPath + "\" backup \"" + backupPath + "\"");
+                SendCommand("\"" + AdbPath + "\" backup \"" + backupPath + "\"");
         }
 
         public void Restore(string backupPath)
         {
             try
             {
-                SendCommand("\"" + adbPath + "\" restore \"" + backupPath + "\"");
+                SendCommand("\"" + AdbPath + "\" restore \"" + backupPath + "\"");
             }
             catch
             {
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" restore \"" + backupPath.Replace("/", "\\") + "\"");
+                    SendCommand("\"" + AdbPath + "\" restore \"" + backupPath.Replace("/", "\\") + "\"");
                 }
                 catch
                 {
@@ -280,13 +279,13 @@ namespace TestADB.UserControl
             if (overWrite == true)
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" logcat > \"" + logPath + "\"");
+                    SendCommand("\"" + AdbPath + "\" logcat > \"" + logPath + "\"");
                 }
                 catch
                 {
                     try
                     {
-                        SendCommand("\"" + adbPath + "\" logcat > \"" + logPath.Replace("/", "\\") + "\"");
+                        SendCommand("\"" + AdbPath + "\" logcat > \"" + logPath.Replace("/", "\\") + "\"");
                     }
                     catch
                     {
@@ -296,13 +295,13 @@ namespace TestADB.UserControl
             {
                 try
                 {
-                    SendCommand("\"" + adbPath + "\" logcat >> \"" + logPath + "\"");
+                    SendCommand("\"" + AdbPath + "\" logcat >> \"" + logPath + "\"");
                 }
                 catch
                 {
                     try
                     {
-                        SendCommand("\"" + adbPath + "\" logcat >> \"" + logPath.Replace("/", "\\") + "\"");
+                        SendCommand("\"" + AdbPath + "\" logcat >> \"" + logPath.Replace("/", "\\") + "\"");
                     }
                     catch
                     {
