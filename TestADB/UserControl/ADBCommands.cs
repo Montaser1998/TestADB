@@ -38,15 +38,19 @@ namespace TestADB.UserControl
         BackgroundWorker CMD = new BackgroundWorker();
 
         private Process Shell;
+
+        public string DeviceNumber { get; set; }
+
+        // Needed data types for our emulated shell
+        string Command = "";
+        bool Complete = false;
+
         public ADBCommands(string path)
         {
             AdbPath = $"{path}\\adb.exe"; // Path Adb Server
             CMD.DoWork += new DoWorkEventHandler(CMD_Send);
         }
 
-        // Needed data types for our emulated shell
-        string Command = "";
-        bool Complete = false;
 
         // Create an emulated shell for executing commands
         private void CMD_Send(object sender, DoWorkEventArgs e)
@@ -151,16 +155,19 @@ namespace TestADB.UserControl
         public void Execute(string command, bool asroot)
         {
             if (asroot)
-                SendCommand("\"" + AdbPath + "\" shell su -c \"" + command + "\"");
+                SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} shell su -c \"" + command + "\"");
             else
-                SendCommand("\"" + AdbPath + "\" shell " + command);
+                SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} shell " + command);
+        }
+        public void ExecuteCommand(string command)
+        {
+            SendCommand(command);
         }
 
         public void Remount()
         {
             SendCommand("\"" + AdbPath + "\" shell su -c \"mount -o rw,remount /system\"");
         }
-        public int DeviceNumber { get; set; }
         public void Reboot(BootState boot)
         {
             switch (boot)
