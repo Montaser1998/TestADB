@@ -121,9 +121,14 @@ namespace TestADB.UserControl
             SendCommand("\"" + AdbPath + "\" connect " + ip);
         }
 
+
         public void Disconnect(string ip)
         {
             SendCommand("\"" + AdbPath + "\" disconnect " + ip);
+        }
+        public void CreateTcp(int port)
+        {
+            SendCommand("\"" + AdbPath + "\" tcpip  " + port);
         }
 
         public void StartServer()
@@ -155,19 +160,19 @@ namespace TestADB.UserControl
         {
             SendCommand("\"" + AdbPath + "\" shell su -c \"mount -o rw,remount /system\"");
         }
-
+        public int DeviceNumber { get; set; }
         public void Reboot(BootState boot)
         {
             switch (boot)
             {
                 case BootState.System:
-                    SendCommand("\"" + AdbPath + "\" shell su -c \"reboot\"");
+                    SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} reboot");
                     break;
                 case BootState.Bootloader:
-                    SendCommand("\"" + AdbPath + "\" shell su -c \"reboot bootloader\"");
+                    SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} reboot bootloader");
                     break;
                 case BootState.Recovery:
-                    SendCommand("\"" + AdbPath + "\" shell su -c \"reboot recovery\"");
+                    SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} reboot recovery");
                     break;
             }
         }

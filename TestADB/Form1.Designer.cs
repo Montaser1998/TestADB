@@ -29,16 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.StartServer = new System.Windows.Forms.Button();
+            this.KillServer = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.ExportBackup = new System.Windows.Forms.Button();
+            this.ImportBackup = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
@@ -46,61 +44,33 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel1.SuspendLayout();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // StartServer
             // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 34);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.StartServer.Location = new System.Drawing.Point(3, 3);
+            this.StartServer.Name = "StartServer";
+            this.StartServer.Size = new System.Drawing.Size(117, 34);
+            this.StartServer.TabIndex = 2;
+            this.StartServer.Text = "Start Server";
+            this.StartServer.UseVisualStyleBackColor = true;
+            this.StartServer.Click += new System.EventHandler(this.StartServer_Click);
             // 
-            // button2
+            // KillServer
             // 
-            this.button2.Location = new System.Drawing.Point(115, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 34);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Disconnect";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(28, 43);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(106, 34);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Start Server";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(28, 83);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 34);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Kill Server";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(28, 131);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(106, 34);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            this.KillServer.Location = new System.Drawing.Point(126, 3);
+            this.KillServer.Name = "KillServer";
+            this.KillServer.Size = new System.Drawing.Size(117, 34);
+            this.KillServer.TabIndex = 3;
+            this.KillServer.Text = "Kill Server";
+            this.KillServer.UseVisualStyleBackColor = true;
+            this.KillServer.Click += new System.EventHandler(this.KillServer_Click);
             // 
             // listBox1
             // 
@@ -109,19 +79,9 @@
             this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(3, 22);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(589, 171);
+            this.listBox1.Size = new System.Drawing.Size(514, 175);
             this.listBox1.TabIndex = 5;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(872, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(162, 530);
-            this.panel1.TabIndex = 6;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // textBox1
             // 
@@ -139,20 +99,42 @@
             this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(595, 241);
+            this.groupBox1.Size = new System.Drawing.Size(520, 241);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Devices";
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Controls.Add(this.StartServer);
+            this.flowLayoutPanel1.Controls.Add(this.KillServer);
+            this.flowLayoutPanel1.Controls.Add(this.ExportBackup);
+            this.flowLayoutPanel1.Controls.Add(this.ImportBackup);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 193);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 197);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(589, 45);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(514, 41);
             this.flowLayoutPanel1.TabIndex = 6;
+            // 
+            // ExportBackup
+            // 
+            this.ExportBackup.Location = new System.Drawing.Point(249, 3);
+            this.ExportBackup.Name = "ExportBackup";
+            this.ExportBackup.Size = new System.Drawing.Size(124, 34);
+            this.ExportBackup.TabIndex = 4;
+            this.ExportBackup.Text = "Export Backup";
+            this.ExportBackup.UseVisualStyleBackColor = true;
+            this.ExportBackup.Click += new System.EventHandler(this.ExportBackup_Click);
+            // 
+            // ImportBackup
+            // 
+            this.ImportBackup.Location = new System.Drawing.Point(379, 3);
+            this.ImportBackup.Name = "ImportBackup";
+            this.ImportBackup.Size = new System.Drawing.Size(124, 34);
+            this.ImportBackup.TabIndex = 5;
+            this.ImportBackup.Text = "Import Backup";
+            this.ImportBackup.UseVisualStyleBackColor = true;
+            this.ImportBackup.Click += new System.EventHandler(this.ImportBackup_Click);
             // 
             // groupBox2
             // 
@@ -170,9 +152,9 @@
             this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(614, 13);
+            this.groupBox3.Location = new System.Drawing.Point(538, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(237, 166);
+            this.groupBox3.Size = new System.Drawing.Size(232, 166);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Reboot modes";
@@ -204,10 +186,10 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(7, 61);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(224, 24);
+            this.radioButton2.Size = new System.Drawing.Size(187, 24);
             this.radioButton2.TabIndex = 1;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Reboot to Download Mode";
+            this.radioButton2.Text = "Reboot to Bootloader";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
             // 
@@ -229,21 +211,23 @@
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 530);
+            this.ClientSize = new System.Drawing.Size(862, 530);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Test ADB";
-            this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -255,14 +239,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button StartServer;
+        private System.Windows.Forms.Button KillServer;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -271,8 +250,12 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button ExportBackup;
+        private System.Windows.Forms.Button ImportBackup;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

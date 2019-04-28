@@ -21,14 +21,15 @@ namespace TestADB
             InitializeComponent();
             var path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             adbCommands = new ADBCommands(path);
+            //var ss = "\"" + "montaser" + "\" -s 12332432 \"reboot bootloader\"";
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            adbCommands.Connect("192.168.3.4");
+            adbCommands.Connect("192.168.3.15:5555");
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void StartServer_Click(object sender, EventArgs e)
         {
             adbCommands.StartServer();
             foreach (var item in adbCommands.Devices())
@@ -37,15 +38,17 @@ namespace TestADB
             }
         }
 
-        private void Button4_Click(object sender, EventArgs e)
+        private void KillServer_Click(object sender, EventArgs e)
         {
             adbCommands.KillServer();
             listBox1.Items.Clear();
+            textBox1.Text += "\n Killed server and clear devices list";
         }
-        private ADBCommands.BootState bootState;
+        private ADBCommands.BootState? bootState;
         private void Button6_Click(object sender, EventArgs e)
         {
-            adbCommands.Reboot(bootState);
+            if (bootState != null)
+                adbCommands.Reboot(bootState.Value);
 
         }
 
@@ -78,7 +81,34 @@ namespace TestADB
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            adbCommands.Execute("netcfg", false);
+            //adbCommands.Execute("netcfg", false);
+            adbCommands.CreateTcp(5555);
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            adbCommands.Disconnect("192.168.3.15:5555");
+        }
+
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var split =((ListBox)sender).SelectedItem.ToString().Split('\t');
+            adbCommands.DeviceNumber = Convert.ToInt32(split[0]);
+        }
+
+        private void ExportBackup_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ImportBackup_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
