@@ -159,6 +159,10 @@ namespace TestADB.UserControl
             else
                 SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} shell " + command);
         }
+        public void GetInfo()
+        {
+            SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} shell getprop");
+        }
         public void ExecuteCommand(string command)
         {
             SendCommand(command);

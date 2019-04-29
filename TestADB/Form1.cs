@@ -124,5 +124,10 @@ namespace TestADB
             //adbCommands.Reboot(ADBCommands.BootState.System);
 
         }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            adbCommands.GetInfo();
+        }
     }
 }
