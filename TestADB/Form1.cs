@@ -41,7 +41,8 @@ namespace TestADB
         {
             adbCommands.KillServer();
             DevicesList.Items.Clear();
-            LogsTxt.Text += "\n Killed server and clear devices list";
+            LogsTxt.Text = null;
+            LogsTxt.Text += "\n Killed server and clear devices list \n";
         }
         private ADBCommands.BootState? bootState;
         private void RebootBtn_Click(object sender, EventArgs e)
@@ -102,11 +103,31 @@ namespace TestADB
 
         private void ExportBackupBtn_Click(object sender, EventArgs e)
         {
-
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Backup File (*.ab)|*.ab";
+                sfd.Title = "Save backup file as";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    var Path = System.IO.Path.GetFullPath(sfd.FileName);
+                    adbCommands.Backup(Path);
+                }
+            }
         }
 
         private void ImportBackupBtn_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Backup File (*.ab)|*.ab";
+                ofd.Title = "Browse backup file";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    //var nameFile = System.IO.Path.GetFileName(ofd.FileName);
+                    var Path = System.IO.Path.GetFullPath(ofd.FileName);
+                    adbCommands.Restore(Path);
+                }
+            }
 
         }
 
@@ -120,9 +141,9 @@ namespace TestADB
             //    "\nupdate secure set value=0 where name='lockscreen.lockedoutpermanently';" +
             //    "\n.quit" +
             //    "\nexit", true);
-            //adbCommands.Execute("rm /data/system/gesture.key", false);
+            adbCommands.Execute("rm /data/system/gesture.key", false);
+            //Task.Delay(TimeSpan.FromSeconds(20));
             //adbCommands.Reboot(ADBCommands.BootState.System);
-
         }
 
         private void Button1_Click(object sender, EventArgs e)

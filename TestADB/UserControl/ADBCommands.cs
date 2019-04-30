@@ -262,25 +262,25 @@ namespace TestADB.UserControl
             SendCommand("\"" + AdbPath + "\" uninstall \"" + packageName + "\"");
         }
 
-        public void Backup(string backupPath, string backupArgs)
+        public void Backup(string backupPath)
         {
-            if (backupArgs != null && !string.IsNullOrWhiteSpace(backupArgs))
-                SendCommand("\"" + AdbPath + "\" backup \"" + backupPath + "\" " + "\"" + backupArgs + "\"");
-            else
-                SendCommand("\"" + AdbPath + "\" backup \"" + backupPath + "\"");
+            //if (backupArgs != null && !string.IsNullOrWhiteSpace(backupArgs))
+                SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} backup -apk -shared -all -f \"" + backupPath + "\"");
+            //else
+            //    SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} backup -apk -shared -all -f \"" + backupPath + "\"");
         }
 
         public void Restore(string backupPath)
         {
             try
             {
-                SendCommand("\"" + AdbPath + "\" restore \"" + backupPath + "\"");
+                SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} restore \"" + backupPath + "\"");
             }
             catch
             {
                 try
                 {
-                    SendCommand("\"" + AdbPath + "\" restore \"" + backupPath.Replace("/", "\\") + "\"");
+                    SendCommand("\"" + AdbPath + $"\" -s {DeviceNumber} restore \"" + backupPath.Replace("/", "\\") + "\"");
                 }
                 catch
                 {
